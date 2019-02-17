@@ -10,7 +10,7 @@
                   expand
                   class="elevation-1">
     <template slot="items" slot-scope="props">
-      <tr @click="props.expanded = !props.expanded">
+      <tr @click="props.expanded = !props.expanded && getSubItem(props.item.id)">
         <td class="text-xs">{{ props.item.id }}</td>
         <td class="text-xs">{{ props.item.name }}</td>
         <td class="text-xs">{{ props.item.status }}</td>
@@ -45,7 +45,7 @@
 
 <script>
   export default {
-      data () {
+    data () {
       return {
         mainHeaders: [
           { text: 'ID', value: 'id' },
@@ -58,7 +58,8 @@
           { text: 'Name', value: 'name' },
           { text: 'Message', value: 'message' },
           { text: 'Created time', value: 'created_time' }
-        ]
+        ],
+        subItems: []
       }
     },
 
@@ -68,13 +69,9 @@
       },
 
       localPosts () {
-        return this.$store.getters.localPosts.map(item => {
-          return {
-            id: item.id,
-            name: item.name,
-            status: item.status,
-            picture: item.imageUrl
-          };
+        this.$store.getters.localPosts.map(item => {
+          const local_posts = Object.assign({}, item)
+          this.mainItems.push(local_posts)
         });
       },
 
@@ -87,19 +84,6 @@
             picture: item.picture
           };
         });
-      },
-
-      subItems (item) {
-        return this.$store.getters.posts[0]
-        .filter(item => item.comments != null && item.id.split('_')[1] === item.comments.data[0].id.split('_')[0])
-        .map(item => {
-          return {
-            id: item.comments.data[0].id,
-            name: item.comments.data[0].from.name,
-            message: item.comments.data[0].message,
-            created_time: item.comments.data[0].created_time
-          };
-        });
       }
     },
 
@@ -109,7 +93,16 @@
     },
 
     methods: {
-
+      getSubItem (item_id) {
+        const result = [];
+        this.$store.getters.posts[0]
+        .filter(item => item.comments != null && item_id.split('_')[1] === item.comments.data[0].id.split('_')[0])
+        .map(item => {
+          const copy = Object.assign({}, item.comments.data[0], item.comments.data[0]['from'])
+          result.push(copy);
+        });
+        return this.subItems = result
+      },
     }
   }
 </script>
