@@ -202,7 +202,7 @@ export default new Vuex.Store({
     createPost ({commit, state}, payload) {
       const post = {
         name: payload.name,
-        imageUrl: payload.imageUrl,
+        picture: payload.picture,
         date: payload.date,
         status: 'not posted'
       }

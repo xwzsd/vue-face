@@ -25,14 +25,14 @@
                 name="image-url"
                 label="Image URL"
                 id="image-url"
-                v-model="imageUrl"
+                v-model="picture"
                 required>
               </v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <img :src="imageUrl" height="150">
+              <img :src="picture" height="150">
             </v-flex>
           </v-layout>
           <v-layout row>
@@ -53,14 +53,14 @@
     data () {
       return {
         name: '',
-        imageUrl: ''
+        picture: ''
       }
     },
 
     computed: {
       formIsValid () {
         return this.name !== '' &&
-        this.imageUrl !== ''
+        this.picture !== ''
       }
     },
 
@@ -68,7 +68,7 @@
       onCreatePost () {
         const postData = {
           name: this.name,
-          imageUrl: this.imageUrl,
+          picture: this.picture,
           date: new Date()
         }
         this.$store.dispatch('createPost', postData)
