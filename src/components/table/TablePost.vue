@@ -80,7 +80,7 @@
       },
 
       mainItems () {
-        return this.$store.getters.posts[0].map(item => {
+        return this.$store.getters.posts.slice(-1)[0].map(item => {
           return {
             id: item.id,
             name: item.name,

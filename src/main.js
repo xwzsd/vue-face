@@ -14,7 +14,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 axios.defaults.baseURL = 'https://vue-face.firebaseio.com/'
 // axios.defaults.headers.common['Authorization'] = 'fasfdsa'
 axios.defaults.headers.get['Accepts'] = 'application/json'
-
+var SocialSharing = require('vue-social-sharing');
+Vue.use(SocialSharing);
 Vue.use(BootstrapVue);
 Vue.config.productionTip = false;
 

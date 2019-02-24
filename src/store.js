@@ -201,10 +201,10 @@ export default new Vuex.Store({
 
     createPost ({commit, state}, payload) {
       const post = {
-        name: payload.name,
-        picture: payload.picture,
-        date: payload.date,
-        status: 'not posted'
+        title: payload.title,
+        description: payload.description,
+        url: payload.url,
+        date: payload.date
       }
       if (!state.idToken) {
         return

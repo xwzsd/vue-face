@@ -11,10 +11,10 @@
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="name"
-                label="Name"
-                id="name"
-                v-model="name"
+                name="title"
+                label="Title"
+                id="title"
+                v-model="title"
                 required>
               </v-text-field>
             </v-flex>
@@ -22,24 +22,41 @@
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
               <v-text-field
-                name="image-url"
-                label="Image URL"
-                id="image-url"
-                v-model="picture"
+                name="description"
+                label="Description"
+                id="description"
+                v-model="description"
                 required>
               </v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm3>
-              <img :src="picture" height="150">
+              <v-text-field
+                name="url"
+                label="URL"
+                id="url"
+                v-model="url"
+                required>
+              </v-text-field>
             </v-flex>
           </v-layout>
           <v-layout row>
             <v-flex xs12 sm6 offset-sm-3>
               <v-btn
-              :disabled="!formIsValid"
-              type="submit">Create Post</v-btn>
+                :disabled="!formIsValid"
+                type="submit">
+                <social-sharing :url='url'
+                                :quote='title'
+                                :description='description'
+                                inline-template
+                                hashtags="">
+                  <network
+                    network="facebook"
+                    class="fa fa-fw fa-facebook">Create Post
+                  </network>
+                </social-sharing>
+              </v-btn>
             </v-flex>
           </v-layout>
         </form>
@@ -52,23 +69,26 @@
   export default {
     data () {
       return {
-        name: '',
-        picture: ''
+        title: '',
+        description: '',
+        url: ''
       }
     },
 
     computed: {
       formIsValid () {
-        return this.name !== '' &&
-        this.picture !== ''
+        return this.title !== '' &&
+        this.description !== '' &&
+        this.url !== ''
       }
     },
 
     methods: {
       onCreatePost () {
         const postData = {
-          name: this.name,
-          picture: this.picture,
+          title: this.title,
+          description: this.description,
+          url: this.url,
           date: new Date()
         }
         this.$store.dispatch('createPost', postData)
