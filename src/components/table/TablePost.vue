@@ -16,9 +16,9 @@
         <td class="text-xs">{{ props.item.status }}</td>
         <td class="text-xs">
           <v-img :src="props.item.picture"
-          max-height="125"
-          max-weight="125"
-          class="grey darken-4">
+            max-height="125"
+            max-weight="125"
+            class="grey darken-4">
           </v-img>
         </td>
       </tr>
