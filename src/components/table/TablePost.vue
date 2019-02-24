@@ -15,7 +15,11 @@
         <td class="text-xs">{{ props.item.name }}</td>
         <td class="text-xs">{{ props.item.status }}</td>
         <td class="text-xs">
-          <img :src="props.item.picture" />
+          <v-img :src="props.item.picture"
+          max-height="125"
+          max-weight="125"
+          class="grey darken-4">
+          </v-img>
         </td>
       </tr>
     </template>
@@ -106,3 +110,8 @@
     }
   }
 </script>
+<style>
+  .theme--light.application {
+    background: #ffffff;
+  }
+</style>
